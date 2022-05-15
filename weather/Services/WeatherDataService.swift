@@ -20,10 +20,7 @@ class WeatherDataService {
         weatherSubscription = NetworkingManager.download(url: url)
             .decode(type: WeatherModel.self, decoder: JSONDecoder())
             .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: {[weak self] (returnedWeather) in
-                
                 self?.weatherData = returnedWeather
-                print("Getting Weather: \(self?.weatherData?.current.tempF)")
-                
             })
     }
 }

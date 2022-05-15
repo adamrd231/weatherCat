@@ -17,6 +17,8 @@
 		664940AB2829E3BE00497219 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664940AA2829E3BE00497219 /* NetworkingManager.swift */; };
 		664940AD2829E3DD00497219 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664940AC2829E3DD00497219 /* LocalFileManager.swift */; };
 		664940AF282C186100497219 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664940AE282C186100497219 /* LocationManager.swift */; };
+		66F44E1028306AC300C780ED /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F44E0F28306AC300C780ED /* PreviewProvider.swift */; };
+		66F44E1228306E0200C780ED /* PurrboModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F44E1128306E0200C780ED /* PurrboModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		664940AA2829E3BE00497219 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		664940AC2829E3DD00497219 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		664940AE282C186100497219 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		66F44E0F28306AC300C780ED /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
+		66F44E1128306E0200C780ED /* PurrboModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurrboModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 		664940902829DE8C00497219 /* weather */ = {
 			isa = PBXGroup;
 			children = (
+				66F44E0E28306AB700C780ED /* Extensions */,
 				664940912829DE8C00497219 /* weatherApp.swift */,
 				664940A92829E3B000497219 /* Utilities */,
 				664940A42829DF6500497219 /* Services */,
@@ -88,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				664940A72829E10200497219 /* WeatherDataModel.swift */,
+				66F44E1128306E0200C780ED /* PurrboModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -117,6 +123,14 @@
 				664940AC2829E3DD00497219 /* LocalFileManager.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		66F44E0E28306AB700C780ED /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				66F44E0F28306AC300C780ED /* PreviewProvider.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,10 +205,12 @@
 				664940942829DE8C00497219 /* HomeView.swift in Sources */,
 				664940A82829E10200497219 /* WeatherDataModel.swift in Sources */,
 				664940A32829DF0400497219 /* HomeViewModel.swift in Sources */,
+				66F44E1228306E0200C780ED /* PurrboModel.swift in Sources */,
 				664940AB2829E3BE00497219 /* NetworkingManager.swift in Sources */,
 				664940AF282C186100497219 /* LocationManager.swift in Sources */,
 				664940A62829E0CE00497219 /* WeatherDataService.swift in Sources */,
 				664940922829DE8C00497219 /* weatherApp.swift in Sources */,
+				66F44E1028306AC300C780ED /* PreviewProvider.swift in Sources */,
 				664940AD2829E3DD00497219 /* LocalFileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

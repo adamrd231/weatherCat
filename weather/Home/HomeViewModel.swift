@@ -16,25 +16,38 @@ class HomeViewModel:ObservableObject {
     // Current Search Text
     @Published var searchText: String = ""
     
+    @Published var currentTemp: Double = 0
+    
     // Cancellable variable to store in
     private var cancellables = Set<AnyCancellable>()
     
     // Data Services
     let weatherDataService = WeatherDataService()
     
+    // Location Services
     private var locationManager = LocationManager()
     @Published var coordinates: CLLocationCoordinate2D? = nil
     
+    // Purrbo
+    @Published var purrbo = PurrboModel(tempPurrboWearsPants: 60, isWearingPants: true, tempature: .good)
+    
     init() {
         addSubscribers()
+        print("Weather \(weatherData)")
     }
     
-    
     func addSubscribers() {
+        
         weatherDataService.$weatherData
-            .sink { weatherModel in
+            .sink { [self] weatherModel in
                 self.weatherData = weatherModel
+                print("Weather \(weatherData)")
+                if let weather = weatherData?.current.tempF {
+                    self.currentTemp = weather
+                }
+                
             }
+            
             .store(in: &cancellables)
         
         locationManager.$location
@@ -44,8 +57,7 @@ class HomeViewModel:ObservableObject {
                 
                 self.weatherDataService.getWeather(searchText: "\(returnedLocation.latitude),\(returnedLocation.longitude)")
                 self.coordinates = returnedLocation
-                print(self.coordinates?.latitude)
-                print(self.coordinates?.longitude)
+                
             }
             .store(in: &cancellables)
     }
