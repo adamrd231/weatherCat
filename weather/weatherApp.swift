@@ -16,6 +16,9 @@ struct weatherApp: App {
         WindowGroup {
             HomeView()
                 .environmentObject(vm)
+                .task {
+                    await vm.setupWeather()
+                }
         }
     }
 }

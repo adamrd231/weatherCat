@@ -17,6 +17,8 @@
 		664940AB2829E3BE00497219 /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664940AA2829E3BE00497219 /* NetworkingManager.swift */; };
 		664940AD2829E3DD00497219 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664940AC2829E3DD00497219 /* LocalFileManager.swift */; };
 		664940AF282C186100497219 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664940AE282C186100497219 /* LocationManager.swift */; };
+		669D7373289724B80020CF17 /* WeatherDashBoardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D7372289724B70020CF17 /* WeatherDashBoardItem.swift */; };
+		669D7375289726270020CF17 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D7374289726270020CF17 /* Color.swift */; };
 		66F44E1028306AC300C780ED /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F44E0F28306AC300C780ED /* PreviewProvider.swift */; };
 		66F44E1228306E0200C780ED /* PurrboModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F44E1128306E0200C780ED /* PurrboModel.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +36,8 @@
 		664940AA2829E3BE00497219 /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		664940AC2829E3DD00497219 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		664940AE282C186100497219 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		669D7372289724B70020CF17 /* WeatherDashBoardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDashBoardItem.swift; sourceTree = "<group>"; };
+		669D7374289726270020CF17 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		66F44E0F28306AC300C780ED /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		66F44E1128306E0200C780ED /* PurrboModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurrboModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +107,7 @@
 			children = (
 				664940932829DE8C00497219 /* HomeView.swift */,
 				664940A22829DF0400497219 /* HomeViewModel.swift */,
+				669D7372289724B70020CF17 /* WeatherDashBoardItem.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -129,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				66F44E0F28306AC300C780ED /* PreviewProvider.swift */,
+				669D7374289726270020CF17 /* Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -207,11 +213,13 @@
 				664940A32829DF0400497219 /* HomeViewModel.swift in Sources */,
 				66F44E1228306E0200C780ED /* PurrboModel.swift in Sources */,
 				664940AB2829E3BE00497219 /* NetworkingManager.swift in Sources */,
+				669D7375289726270020CF17 /* Color.swift in Sources */,
 				664940AF282C186100497219 /* LocationManager.swift in Sources */,
 				664940A62829E0CE00497219 /* WeatherDataService.swift in Sources */,
 				664940922829DE8C00497219 /* weatherApp.swift in Sources */,
 				66F44E1028306AC300C780ED /* PreviewProvider.swift in Sources */,
 				664940AD2829E3DD00497219 /* LocalFileManager.swift in Sources */,
+				669D7373289724B80020CF17 /* WeatherDashBoardItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

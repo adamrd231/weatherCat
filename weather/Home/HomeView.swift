@@ -13,33 +13,41 @@ struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
     
     var items: [GridItem] {
-        Array(repeating: .init(.adaptive(minimum: 2)), count: 2)
+        Array(repeating: .init(.adaptive(minimum: 20)), count: 2)
     }
     
     var body: some View {
-        ZStack {
-            VStack(alignment: .trailing) {
-                nightOrDayModule
-                Spacer()
+        TabView {
+            // MARK: Home View - Current Purrbo State and Weather 
+            ZStack {
+                VStack(alignment: .trailing) {
+                    nightOrDayModule
+                    Spacer()
+                }
+                
+                VStack {
+                    Image(vm.purrbo.isWearingPants == false ? "purrbo-shorts" : "purrbo-pants")
+                        .resizable()
+                        .frame(width: 150, height: 200, alignment: .center)
+                }
+                
+                VStack {
+                    Spacer()
+                    userDashboard
+                }
+            }
+            .tabItem {
+                tabItemOne
             }
             
+            // MARK: Options View - Change Purrbo's outfit
             VStack {
-                Image(vm.purrbo.isWearingPants == false ? "purrbo-shorts" : "purrbo-pants")
-                    .resizable()
-                    .frame(width: 150, height: 200, alignment: .center)
+                Text("Options")
             }
-            
-            VStack {
-                Spacer()
-                userDashboard
-                userOptionsButton
-                    .padding(.horizontal)
-            } 
+            .tabItem {
+                tabItemTwo
+            }
         }
-        .task {
-            await vm.setupWeather()
-        }
-
     }
 }
 
@@ -51,6 +59,15 @@ struct HomeView_Previews: PreviewProvider {
 }
 
 extension HomeView {
+    var tabItemOne: some View {
+        Label("Purrbo", systemImage: "square.and.pencil")
+    }
+    
+    var tabItemTwo: some View {
+        Label("Options", systemImage: "list.dash")
+    }
+    
+    
     @ViewBuilder
     var nightOrDayModule: some View {
         if let daytime = vm.weatherData?.current.isDay {
@@ -73,65 +90,14 @@ extension HomeView {
     
     var userDashboard: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-       
-            LazyVGrid(columns: items, spacing: 10) {
-                if let windSpeed = vm.weatherData?.current.windMph {
-                    Text("\(windSpeed.description)mph")
-                }
-                if let location = vm.weatherData?.location.region {
-                    Text(location)
+            HStack {
+                ForEach(vm.weatherDashboard) { item in
+                    WeatherDashboardItem(weatherItem: item)
                 }
             }
+            .padding()
         }
-//        VStack {
-//            Divider()
-//            HStack(alignment: .center, spacing: 25) {
-//                VStack(alignment: .leading) {
-//                    if let tempF = vm.weatherData?.current.tempF {
-//                    HStack(alignment: .center, spacing: 10) {
-//                        Image(systemName: "thermometer")
-//                            .resizable()
-//                            .frame(width: 20, height: 25, alignment: .center)
-//
-//                        Text(tempF.description)
-//                            .font(.title)
-//                            .fontWeight(.bold)
-//                        }
-//                    }
-//                    if let windSpeed = vm.weatherData?.current.windMph {
-//                        Text("\(windSpeed.description)mph")
-//                    }
-//                    if let location = vm.weatherData?.location.region {
-//                        Text(location)
-//                    }
-//                }
-//
-//
-//                HStack(alignment: .center) {
-//                    Image(systemName: "bubble.left")
-//                        .resizable()
-//                        .frame(width: 25, height: 25, alignment: .center)
-//                    Text(vm.purrbo.tempature.rawValue)
-//                        .font(.title)
-//                        .fontWeight(.bold)
-//                }
-//            }
-//        }
     }
     
-    var userOptionsButton: some View {
-        HStack {
-            Button {
-                // Update Purrbo's clothing
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20.0)
-                        .frame(height: 66)
-                    Text("Change Clothes")
-                        .foregroundColor(.white)
-                }
-            }
-        }
-    }
     
 }
