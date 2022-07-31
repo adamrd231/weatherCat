@@ -19,7 +19,7 @@ class WeatherDataService {
         
         guard (response as? HTTPURLResponse)?.statusCode == 200 else { fatalError("Error downloading weather")}
         let decodedWeather = try JSONDecoder().decode(WeatherModel.self, from: data)
-        print("🧨🧨🧨 Weather is \(decodedWeather)")
+        print("🙌 Weather is \(decodedWeather)")
         return decodedWeather
     }
 }

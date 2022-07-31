@@ -9,8 +9,10 @@ import SwiftUI
 import CoreLocation
 
 struct HomeView: View {
-    @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @EnvironmentObject var vm: HomeViewModel
+    
+    @State var purrboPicture = "purrbo1"
+    @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var items: [GridItem] {
         Array(repeating: .init(.adaptive(minimum: 20)), count: 2)
@@ -26,9 +28,16 @@ struct HomeView: View {
                 }
                 
                 VStack {
-                    Image(vm.purrbo.isWearingPants == false ? "purrbo-shorts" : "purrbo-pants")
+                    Image(purrboPicture)
                         .resizable()
-                        .frame(width: 150, height: 200, alignment: .center)
+                        .frame(width: UIScreen.main.bounds.width * 0.66, height: UIScreen.main.bounds.height * 0.4, alignment: .center)
+                }
+                .onReceive(timer) { input in
+                    if purrboPicture == "purrbo1" {
+                        purrboPicture = "purrbo2"
+                    } else {
+                        purrboPicture = "purrbo1"
+                    }
                 }
                 
                 VStack {
