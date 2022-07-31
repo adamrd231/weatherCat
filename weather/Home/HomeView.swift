@@ -11,12 +11,10 @@ import CoreLocation
 struct HomeView: View {
     @EnvironmentObject var vm: HomeViewModel
     
-    @State var purrboPicture = "purrbo1"
-    @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var purrboPictureArray = ["p1-1", "p2"]
+    @State var selectedIndex = 0
     
-    var items: [GridItem] {
-        Array(repeating: .init(.adaptive(minimum: 20)), count: 2)
-    }
+    @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         TabView {
@@ -28,15 +26,16 @@ struct HomeView: View {
                 }
                 
                 VStack {
-                    Image(purrboPicture)
+                    Image(purrboPictureArray[selectedIndex])
                         .resizable()
-                        .frame(width: UIScreen.main.bounds.width * 0.66, height: UIScreen.main.bounds.height * 0.4, alignment: .center)
+                        .offset(y: UIScreen.main.bounds.height * 0.05)
+                        .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.5, alignment: .center)
                 }
                 .onReceive(timer) { input in
-                    if purrboPicture == "purrbo1" {
-                        purrboPicture = "purrbo2"
+                    if selectedIndex < 1 {
+                        selectedIndex += 1
                     } else {
-                        purrboPicture = "purrbo1"
+                        selectedIndex = 0
                     }
                 }
                 
@@ -60,12 +59,7 @@ struct HomeView: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-            .environmentObject(HomeViewModel())
-    }
-}
+
 
 extension HomeView {
     var tabItemOne: some View {
@@ -98,10 +92,24 @@ extension HomeView {
     
     
     var userDashboard: some View {
+        
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(vm.weatherDashboard) { item in
-                    WeatherDashboardItem(weatherItem: item)
+                if vm.weatherDashboard.isEmpty {
+                    // Show Placeholder for loading dashboard heres
+                    ForEach(0..<3) { _ in
+                        RoundedRectangle(cornerRadius: .greatestFiniteMagnitude)
+                            .foregroundColor(Color(.lightGray))
+                            .frame(width: 150, height: 66)
+                            .opacity(0.5)
+                    }
+                    
+                    
+                        
+                } else {
+                    ForEach(vm.weatherDashboard) { item in
+                        WeatherDashboardItem(weatherItem: item)
+                    }
                 }
             }
             .padding()
@@ -109,4 +117,13 @@ extension HomeView {
     }
     
     
+}
+
+
+// MARK: Preview Provider
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
+            .environmentObject(HomeViewModel())
+    }
 }
