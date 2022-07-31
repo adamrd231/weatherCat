@@ -16,21 +16,15 @@ struct Cloud: Hashable {
     var yPosition: CGFloat = 0
 }
 
-class HomeViewModel:ObservableObject {
-    
-    @Published var weatherData: WeatherModel? = nil
-    @Published var cloudyness: Int? = nil
-    
-    // Current Search Text
-    @Published var searchText: String = ""
-    
-    @Published var currentTemp: Double = 0
-    
-    // Cancellable variable to store in
-    private var cancellables = Set<AnyCancellable>()
+@MainActor
+final class HomeViewModel:ObservableObject {
     
     // Data Services
     let weatherDataService = WeatherDataService()
+    @Published var weatherData: WeatherModel? = nil
+    
+    // Current Search Text
+    @Published var searchText: String = ""
     
     // Location Services
     private var locationManager = LocationManager()
@@ -40,27 +34,11 @@ class HomeViewModel:ObservableObject {
     @Published var purrbo = PurrboModel(tempPurrboWearsPants: 60, isWearingPants: true, tempature: .good)
     
     func setupWeather() async {
-        weatherData = try? await weatherDataService.getWeather(searchText: "")
+        let location = locationManager.location
+        print("Current location is: \(location)")
+        guard let coordinate = location?.coordinate else { return }
+        weatherData = try? await weatherDataService.getWeather(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
-    
-    func locationAndWeather(location: CLLocation?) -> CLLocationCoordinate2D {
-        let coordinate = self.locationManager.location != nil ? self.locationManager.location!.coordinate : CLLocationCoordinate2D()
-        return coordinate
-    }
-    
-    //Clouds
-    @Published var clouds = [
-        Cloud(
-            xPosition: CGFloat(Int.random(in: -350...350)),
-            yPosition: 0),
-        Cloud(
-            xPosition: CGFloat(Int.random(in: -350...350)),
-            yPosition: 0),
-        Cloud(
-            xPosition: CGFloat(Int.random(in: -350...350)),
-            yPosition: 0)
-    ]
-
     
 }
 
