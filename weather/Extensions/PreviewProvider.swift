@@ -21,6 +21,7 @@ class DeveloperPreview {
     private init() {
         homeViewModel.weatherData = weather
         homeViewModel.coordinates = coordinates
+        homeViewModel.cloudyness = weather.current.cloud
     }
     
     
@@ -58,9 +59,9 @@ class DeveloperPreview {
                                     precipMm: 1.0,
                                     precipIn: 1.0,
                                     humidity: 1,
-                                    cloud: 1,
-                                    feelslikeC: 1.0,
-                                    feelslikeF: 1.0,
+                                    cloud: 90,
+                                    feelslikeC: 20.0,
+                                    feelslikeF: 62.0,
                                     visKM: 1,
                                     visMiles: 1,
                                     uv: 1,

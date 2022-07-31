@@ -8,10 +8,18 @@
 import Foundation
 import Combine
 import CoreLocation
+import SwiftUI
+
+struct Cloud: Hashable {
+    var id = UUID()
+    var xPosition: CGFloat = -300
+    var yPosition: CGFloat = 0
+}
 
 class HomeViewModel:ObservableObject {
     
     @Published var weatherData: WeatherModel? = nil
+    @Published var cloudyness: Int? = nil
     
     // Current Search Text
     @Published var searchText: String = ""
@@ -31,35 +39,8 @@ class HomeViewModel:ObservableObject {
     // Purrbo
     @Published var purrbo = PurrboModel(tempPurrboWearsPants: 60, isWearingPants: true, tempature: .good)
     
-    init() {
-        addSubscribers()
-        print("Weather \(weatherData)")
-    }
-    
-    func addSubscribers() {
-        
-        weatherDataService.$weatherData
-            .sink { [self] weatherModel in
-                self.weatherData = weatherModel
-                print("Weather \(weatherData)")
-                if let weather = weatherData?.current.tempF {
-                    self.currentTemp = weather
-                }
-                
-            }
-            
-            .store(in: &cancellables)
-        
-        locationManager.$location
-            .map(locationAndWeather)
-            .sink{ returnedLocation in
-                // use coordinate to get current weather
-                
-                self.weatherDataService.getWeather(searchText: "\(returnedLocation.latitude),\(returnedLocation.longitude)")
-                self.coordinates = returnedLocation
-                
-            }
-            .store(in: &cancellables)
+    func setupWeather() async {
+        weatherData = try? await weatherDataService.getWeather(searchText: "")
     }
     
     func locationAndWeather(location: CLLocation?) -> CLLocationCoordinate2D {
@@ -67,4 +48,19 @@ class HomeViewModel:ObservableObject {
         return coordinate
     }
     
+    //Clouds
+    @Published var clouds = [
+        Cloud(
+            xPosition: CGFloat(Int.random(in: -350...350)),
+            yPosition: 0),
+        Cloud(
+            xPosition: CGFloat(Int.random(in: -350...350)),
+            yPosition: 0),
+        Cloud(
+            xPosition: CGFloat(Int.random(in: -350...350)),
+            yPosition: 0)
+    ]
+
+    
 }
+

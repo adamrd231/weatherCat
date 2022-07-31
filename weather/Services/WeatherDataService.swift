@@ -12,15 +12,15 @@ class WeatherDataService {
     @Published var weatherData: WeatherModel? = nil
     var weatherSubscription: AnyCancellable?
     
-    func getWeather(searchText: String) {
+    func getWeather(searchText: String) async throws -> WeatherModel {
         
-        var urlString = "https://api.weatherapi.com/v1/current.json?key=a6255bf0451a425eb16234020220905&q=\(searchText)&aqi=no"
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: "https://api.weatherapi.com/v1/current.json?key=a6255bf0451a425eb16234020220905&q=cheboygan&aqi=no") else { fatalError("Error getting URL") }
+        let urlRequest = URLRequest(url: url)
+        let (data, reponse) = try await URLSession.shared.data(for: urlRequest)
         
-        weatherSubscription = NetworkingManager.download(url: url)
-            .decode(type: WeatherModel.self, decoder: JSONDecoder())
-            .sink(receiveCompletion: NetworkingManager.handleCompletion, receiveValue: {[weak self] (returnedWeather) in
-                self?.weatherData = returnedWeather
-            })
+        guard (reponse as? HTTPURLResponse)?.statusCode == 200 else { fatalError("Error downloading weather")}
+        let decodedWeather = try JSONDecoder().decode(WeatherModel.self, from: data)
+        print(":firecracker::firecracker::firecracker: Weather is \(decodedWeather)")
+        return decodedWeather
     }
 }
